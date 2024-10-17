@@ -1,6 +1,3 @@
-https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,47 +14,55 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
             align-items: center;
             font-family: Arial, sans-serif;
         }
-
         h1 {
             font-size: 76px; /* You can adjust the font size as needed */
         }
-
         .box_1 {
-
-            fill:  rgba(0, 0, 0, 0.685);
+            fill: rgba(0, 0, 0, 0.685);
             padding: 10px;
             margin: 40px;
             width: 600px;
             height: 400px;
-            float: left  ;
+            float: left;
             text-decoration: underline;
         }
         .box_2 {
             border: 3px solid #ccc;
-            fill:  rgba(0, 0, 0, 0.685);
+            fill: rgba(0, 0, 0, 0.685);
             padding: 10px;
             margin: 40px;
             width: 600px;
             height: 100px;
-            float: left ;
+            float: left;
             text-decoration: underline;
         }
-        #head{
-            border: 5px solid white; 
+        #head {
+            border: 5px solid white;
             padding: 9px;
             border-radius: 10px;
             text-align: center;
             width: 99%;
-            margin: 10px; 
+            margin: 10px;
         }
-
-        .box_1 a {
-            color: white; /* Change link color to white */
+        .box_1 a, .box_2 a {
+            color: white;
             text-decoration: none;
         }
-        .box_2 a {
-            color: white; /* Change link color to white */
+        .about-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
             text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .about-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
@@ -65,10 +70,6 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
     <div id="head">
         <h1>Plant Monitoring System</h1>
     </div>
-
-
-
-
     <div class="box_2">
         <h2><a href="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15" target="_blank">Temperature</a></h2>
         <div id="dataBox2">
@@ -76,7 +77,6 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
         </div>
     </div>
     <div class="box_1">
-
         <div id="dataBox1">
             <div class="graph 1">
                 <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
@@ -84,17 +84,13 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
             <!-- Data from the first site will be loaded here -->
         </div>
     </div>
-
-
+    <button class="about-button" onclick="window.location.href='about.html'">About Us</button>
     <script>
-        // Function to fetch data from ThingSpeak and update box_2
         async function fetchDataFromThingSpeak() {
             const channelID = '2679947';
             const fieldNumber = '1';
             const apiKey = 'KR8S190NY76UDC68'; // Replace with your ThingSpeak API key
-
-            const apiUrl = https://api.thingspeak.com/channels/${channelID}/fields/${fieldNumber}.json?results=1;
-
+            const apiUrl = `https://api.thingspeak.com/channels/${channelID}/fields/${fieldNumber}.json?results=1`;
             try {
                 const response = await fetch(apiUrl, {
                     method: 'GET',
@@ -102,14 +98,12 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
                         'Content-Type': 'application/json',
                     },
                 });
-
                 if (response.ok) {
                     const data = await response.json();
                     const lastEntry = data.feeds[0];
-
                     if (lastEntry) {
                         const value = lastEntry.field1;
-                        document.getElementById('dataBox2').textContent = Last entry: ${value};
+                        document.getElementById('dataBox2').textContent = `Last entry: ${value}`;
                     } else {
                         document.getElementById('dataBox2').textContent = 'No data available';
                     }
@@ -122,7 +116,6 @@ https://api.thingspeak.com/update?api_key=3VCYIIQZ2E1VF3QK&field1=0
             }
         }
 
-        // Call the function to fetch and display data
         fetchDataFromThingSpeak();
     </script>
 </body>
