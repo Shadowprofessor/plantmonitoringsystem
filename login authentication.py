@@ -26,4 +26,4 @@ def plant_monitoring():
     return render_template('plantmonitoring.html')
 
 if __name__ == '__main__':
-    app.run(debug=True) 
+    plant_monitoring.run(debug=True) 
