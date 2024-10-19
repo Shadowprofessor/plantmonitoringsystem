@@ -1,69 +1,17 @@
-<script>
-    // Handle form submission
-    const userForm = document.getElementById('user-form');
-    const adminForm = document.getElementById('admin-form');
-  
-    userForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-  
-      // Basic validation
-      if (!username || !password) {
-        alert('Please fill in both fields.');
-        return;
-      }
-  
-      fetch('/login/user', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          // Handle successful login (e.g., redirect or show a message)
-        })
-        .catch((err) => {
-          console.error(err);
-          alert('Login failed. Please try again.');
-        });
-    });
-  
-    adminForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const username = document.getElementById('admin-username').value;
-      const password = document.getElementById('admin-password').value;
-  
-      // Basic validation
-      if (!username || !password) {
-        alert('Please fill in both fields.');
-        return;
-      }
-  
-      fetch('/login/admin', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
-      })
-        .then((res) => {
-          if (!res.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          // Handle successful login (e.g., redirect or show a message)
-        })
-        .catch((err) => {
-          console.error(err);
-          alert('Login failed. Please try again.');
-        });
-    });
-  </script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Login</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>User Login</h2>
+        <form action="login.php" method="POST">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+</body>
+</html>
