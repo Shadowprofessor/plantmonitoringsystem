@@ -53,8 +53,5 @@ def run_server(port=8080):
     print(f'Starting server on port {port}...')
     httpd.serve_forever()
 
-if _name_ == '_main_':
-    run_server()
+run_server()
 
-
-Login authentication
