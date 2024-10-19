@@ -10,11 +10,11 @@ class LoginHandler(BaseHTTPRequestHandler):
             with open('login.html', 'rb') as file:
                 self.wfile.write(file.read())
 
-        elif self.path == '/smart_monitoring.html':
+        elif self.path == '/plantmonitoring.html':
             self.send_response(200)
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-            with open('smart_monitoring.html', 'rb') as file:
+            with open('plantmonitoring.html', 'rb') as file:
                 self.wfile.write(file.read())
         else:
             self.send_response(404)
@@ -35,7 +35,7 @@ class LoginHandler(BaseHTTPRequestHandler):
 
             if username == valid_username and password == valid_password:
                 self.send_response(302)  # 302 Found (redirect)
-                self.send_header('Location', '/smart_monitoring.html')
+                self.send_header('Location', '/plantmonitoring.html')
                 self.end_headers()
             else:
                 self.send_response(401)
