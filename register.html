@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Plant Monitoring System</title>
+    <title>Registration - Plant Monitoring System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
+            background-image: url('https://imgix.be.green/63061c845e843267152601.jpg?w=620&h=680&auto=compress');
             background-size: cover;
             background-position: center;
-            background-color: #0d0808;
+            background-color: #9c7777;
             height: 100vh;
             margin: 0;
             display: flex;
@@ -36,27 +36,27 @@
             z-index: 10;
             text-align: center;
         }
-        h2 {
+        h1, h2 {
             margin: 0 0 15px 0;
         }
         input[type="text"], input[type="password"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #ccc;
+            border: 1px solid #c2b6b6;
             border-radius: 4px;
         }
         button {
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #0d150f;
         }
         a {
             display: block;
@@ -78,51 +78,44 @@
         .about-button:hover {
             background-color: #0056b3;
         }
-        /* Admin button */
-        .admin-button {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #dc3545;
-        }
     </style>
 </head>
 <body>
     <div class="overlay"></div>
     <a href="about.html" class="about-button">About</a>
     <div class="container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username or Email" required>
+        <h1>Plant Monitoring System</h1>
+        <h2>Register</h2>
+        <input type="text" id="username" placeholder="Username" required>
+        <input type="text" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <a href="register.html">Don't have an account? Register</a>
-        <a href="admin login.html" class="admin-button">Admin Login</a>
+        <button onclick="register()">Register</button>
+        <a href="index.html">Already have an account? Login</a>
     </div>
 
     <script>
-        function login() {
+        function register() {
             const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            let users = JSON.parse(localStorage.getItem('users')) || {};
-            let loggedIn = false;
+            if (username && email && password) {
+                let users = JSON.parse(localStorage.getItem('users')) || {};
 
-            for (let user in users) {
-                if ((user === username || users[user].email === username) && users[user].password === password) {
-                    loggedIn = true;
-                    break;
+                if (users[username]) {
+                    alert('Username already exists. Please choose a different one.');
+                    return;
                 }
-            }
 
-            if (loggedIn) {
-                alert('Login successful!');
-                window.location.href = 'plantmonitoring.html'; // Redirect to home page
+                users[username] = { email, password };
+                localStorage.setItem('users', JSON.stringify(users));
+
+                alert('Registration successful! Please login.');
+                window.location.href = 'index.html';
             } else {
-                alert('Invalid username/email or password');
+                alert('Please fill all the fields');
             }
         }
     </script>
 </body>
 </html>
-
-

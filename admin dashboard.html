@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Plant Monitoring System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .container {
+            margin: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .admin-action {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Admin Dashboard</h1>
+        <a href="index.html" style="color: white;">Return to Home</a>
+    </header>
+
+    <div class="container">
+        <h2>Welcome, Admin</h2>
+        <div class="admin-action">
+            <p>Manage users</p>
+            <button onclick="manageUsers()">Manage Users</button>
+        </div>
+        <div class="admin-action">
+            <p>Update content on the homepage</p>
+            <button onclick="updateContent()">Update Homepage Content</button>
+        </div>
+        <div class="admin-action">
+            <p>View logs</p>
+            <button onclick="viewLogs()">View Logs</button>
+        </div>
+    </div>
+
+    <script>
+        function manageUsers() {
+            alert("Redirecting to user management system... (Under development)");
+        }
+
+        function updateContent() {
+            alert("Redirecting to content management system... (Under development)");
+        }
+
+        function viewLogs() {
+            alert("redirecting to monitoring system...");
+            window.location.href = 'plantmonitoring.html'
+        }
+    </script>
+</body>
+</html>

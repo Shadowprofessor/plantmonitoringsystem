@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Plant Monitoring System</title>
+    <title>Admin Login - Plant Monitoring System</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,7 +56,7 @@
             cursor: pointer;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #060709;
         }
         a {
             display: block;
@@ -76,14 +76,7 @@
             border-radius: 4px;
         }
         .about-button:hover {
-            background-color: #0056b3;
-        }
-        /* Admin button */
-        .admin-button {
-            display: block;
-            text-align: center;
-            margin-top: 15px;
-            color: #dc3545;
+            background-color: #06090c;
         }
     </style>
 </head>
@@ -91,38 +84,31 @@
     <div class="overlay"></div>
     <a href="about.html" class="about-button">About</a>
     <div class="container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username or Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button onclick="login()">Login</button>
-        <a href="register.html">Don't have an account? Register</a>
-        <a href="admin login.html" class="admin-button">Admin Login</a>
+        <h2>Admin Login</h2>
+        <input type="text" id="admin-username" placeholder="Admin Username" required>
+        <input type="password" id="admin-password" placeholder="Password" required>
+        <button onclick="adminLogin()">Login</button>
+        <a href="index.html">Return to Home</a>
     </div>
 
     <script>
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        function adminLogin() {
+            const adminUsername = document.getElementById('admin-username').value;
+            const adminPassword = document.getElementById('admin-password').value;
 
-            let users = JSON.parse(localStorage.getItem('users')) || {};
-            let loggedIn = false;
+            // Hardcoded admin credentials
+            const adminCredentials = {
+                username: 'admin',
+                password: 'admin123'
+            };
 
-            for (let user in users) {
-                if ((user === username || users[user].email === username) && users[user].password === password) {
-                    loggedIn = true;
-                    break;
-                }
-            }
-
-            if (loggedIn) {
-                alert('Login successful!');
-                window.location.href = 'plantmonitoring.html'; // Redirect to home page
+            if (adminUsername === adminCredentials.username && adminPassword === adminCredentials.password) {
+                alert('Admin login successful!');
+                window.location.href = 'admin dashboard.html'; // Redirect to admin dashboard
             } else {
-                alert('Invalid username/email or password');
+                alert('Invalid admin username or password');
             }
         }
     </script>
 </body>
 </html>
-
-
