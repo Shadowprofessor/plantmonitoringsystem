@@ -8,4 +8,4 @@ CREATE TABLE users (
 );
 
 -- Insert a sample user
-INSERT INTO users (username, password) VALUES ('testuser', 'testpassword');
+INSERT INTO users (username, password) VALUES ('user', '123pass');
