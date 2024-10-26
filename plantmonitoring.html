@@ -138,34 +138,15 @@
     <div id="head">
         <h1>Plant Monitoring System</h1>
     </div>
-    <div class="box_2">
-            <div class="graph 2">
-                <iframe width="450" height="260" style="border: 1px solid #840d0d;" src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
-            </div>
-    
-    </div>
-    <div class="box_1">
-        <div id="dataBox1">
-            <div class="graph 1">
-                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
-            </div>
-        </div>
-    </div>
-    <div class="box_3">
-        <div id="dataBox3">
-            <div class="graph 3">
-                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
-            </div>
-        </div>
-    
-    </div>
-    <div class="box_4">
-        <div id="dataBox4">
-            <div class="image">
-                <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>   
-            </div>
-        </div>
-    </div>
+
+    <iframe width="450" height="260" style="border: 1px solid #840d0d;" src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>   
+
     <button class="about-button" onclick="window.location.href='about.html'">About Us</button>
     <script>
         async function fetchDataFromThingSpeak() {
