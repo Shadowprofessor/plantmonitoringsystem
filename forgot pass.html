@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forgot Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
+            background-size: cover;
+            background-position: center;
+            background-color: #0d0808;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.6);
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            backdrop-filter: blur(5px);
+        }
+        .container {
+            width: 350px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #333;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        h2 {
+            margin: 0 0 20px 0;
+            font-size: 24px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="overlay"></div>
+    <div class="container">
+        <h2>Forgot Password</h2>
+        <p>Please enter your email address to receive a password reset link.</p>
+        <input type="text" id="email" placeholder="Email Address" required>
+        <button onclick="sendResetLink()">Send Reset Link</button>
+        <a href="index.html">Back to Login</a>
+    </div>
+
+    <script>
+        function sendResetLink() {
+            const email = document.getElementById('email').value;
+            // Here you would typically send the email to your server for processing
+            // For demonstration purposes, we'll just alert the user
+            alert(`Password reset link sent to ${email}.`);
+            // Optionally, redirect back to login page after sending the email
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>
