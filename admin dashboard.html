@@ -5,77 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Plant Monitoring System</title>
     <style>
+        /* Main styling */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            height: 100vh;
             margin: 0;
-            padding: 0;
+            display: flex;
+            overflow: hidden;
         }
-        header {
-            background-color: #007bff;
+        .sidebar {
+            width: 250px;
+            background-color: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 10px;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
+        .sidebar h2 {
+            color: #ffc107;
             text-align: center;
         }
-        .container {
-            margin: 50px;
+        .sidebar a {
+            color: #ddd;
+            padding: 15px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            display: block;
         }
-        h1 {
-            text-align: center;
-            margin-bottom: 40px;
+        .sidebar a:hover {
+            background-color: #333;
+            color: #ffc107;
         }
-        .admin-action {
-            margin: 20px 0;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #218838;
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Admin Dashboard</h1>
-        <a href="index.html" style="color: white;">Return to Home</a>
-    </header>
-
-    <div class="container">
-        <h2>Welcome, Admin</h2>
-        <div class="admin-action">
-            <p>Manage users</p>
-            <button onclick="manageUsers()">Manage Users</button>
-        </div>
-        <div class="admin-action">
-            <p>Update content on the homepage</p>
-            <button onclick="updateContent()">Update Homepage Content</button>
-        </div>
-        <div class="admin-action">
-            <p>View logs</p>
-            <button onclick="viewLogs()">View Logs</button>
-        </div>
+    <div class="sidebar">
+        <h2>Admin Dashboard</h2>
+        <a href="user management.html">User Management</a>
+        <a href="activity logs.html">Activity Logs</a>
+        <a href="settings.html">Settings</a>
+        <a href="index.html">Logout</a>
     </div>
-
-    <script>
-        function manageUsers() {
-            alert("Redirecting to user management system... (Under development)");
-        }
-
-        function updateContent() {
-            alert("Redirecting to content management system... (Under development)");
-        }
-
-        function viewLogs() {
-            alert("redirecting to monitoring system...");
-            window.location.href = 'plantmonitoring.html'
-        }
-    </script>
+    <div class="main-content">
+        <h3>Welcome to the Admin Dashboard</h3>
+        <p>Select a section from the sidebar to manage users, view activity logs, or configure settings.</p>
+    </div>
 </body>
 </html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Management - Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background-color: #007bff; color: white; }
+        button { padding: 8px 12px; margin: 4px; border: none; color: white; cursor: pointer; }
+        .delete-btn { background-color: #dc3545; }
+        .reset-btn { background-color: #007bff; }
+    </style>
+</head>
+<body>
+    <h3>User Management</h3>
+    <table id="userTable">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Actions</th>
+        </tr>
+        <!-- User rows will be populated here -->
+    </table>
+    
+    <script>
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+            const userTable = document.getElementById('userTable');
+            userTable.innerHTML = '<tr><th>Username</th><th>Email</th><th>Actions</th></tr>'; // Clear table
+
+            for (let username in users) {
+                const user = users[username];
+                userTable.innerHTML += `
+                    <tr>
+                        <td>${username}</td>
+                        <td>${user.email}</td>
+                        <td>
+                            <button class="reset-btn" onclick="resetPassword('${username}')">Reset Password</button>
+                            <button class="delete-btn" onclick="deleteUser('${username}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+
+        function resetPassword(username) {
+            alert(`Password reset link sent to ${username}`);
+        }
+
+        function deleteUser(username) {
+            if (confirm(`Are you sure you want to delete ${username}?`)) {
+                const users = JSON.parse(localStorage.getItem('users')) || {};
+                delete users[username];
+                localStorage.setItem('users', JSON.stringify(users));
+                loadUsers(); // Refresh user list
+            }
+        }
+
+        loadUsers(); // Initial load
+    </script>
+</body>
+</html>

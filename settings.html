@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Admin Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; padding: 20px; }
+        .settings-container { max-width: 600px; margin: auto; }
+        h3 { color: #007bff; }
+        label { display: block; margin-top: 20px; font-weight: bold; }
+        input[type="checkbox"] { margin-right: 10px; }
+        button { margin-top: 20px; padding: 10px 20px; border: none; color: white; background-color: #007bff; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h3>System Settings</h3>
+        <form id="settingsForm">
+            <label>
+                <input type="checkbox" id="emailNotifications"> Enable Email Notifications
+            </label>
+            <label>
+                <input type="checkbox" id="smsNotifications"> Enable SMS Notifications
+            </label>
+            <label>
+                <select id="systemMode">
+                    <option value="auto">Auto Mode</option>
+                    <option value="manual">Manual Mode</option>
+                </select>
+                System Mode
+            </label>
+            <button type="submit">Save Settings</button>
+        </form>
+    </div>
+
+    <script>
+        // Load saved settings
+        const settings = JSON.parse(localStorage.getItem('settings')) || { emailNotifications: false, smsNotifications: false, systemMode: 'auto' };
+        document.getElementById('emailNotifications').checked = settings.emailNotifications;
+        document.getElementById('smsNotifications').checked = settings.smsNotifications;
+        document.getElementById('systemMode').value = settings.systemMode;
+
+        // Save settings
+        document.getElementById('settingsForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const updatedSettings = {
+                emailNotifications: document.getElementById('emailNotifications').checked,
+                smsNotifications: document.getElementById('smsNotifications').checked,
+                systemMode: document.getElementById('systemMode').value,
+            };
+            localStorage.setItem('settings', JSON.stringify(updatedSettings));
+            alert("Settings saved successfully!");
+        });
+    </script>
+</body>
+</html>
