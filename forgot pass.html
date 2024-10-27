@@ -94,11 +94,26 @@
     <script>
         function sendResetLink() {
             const email = document.getElementById('email').value;
-            // Here you would typically send the email to your server for processing
-            // For demonstration purposes, we'll just alert the user
-            alert(`Password reset link sent to ${email}.`);
-            // Optionally, redirect back to login page after sending the email
-            window.location.href = 'index.html';
+
+            fetch('http://localhost:3000/send-reset-link', { // Adjust this URL if your server is hosted differently
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert(`Password reset link sent to ${email}.`);
+                    window.location.href = 'index.html'; // Redirect back to login
+                } else {
+                    alert('Error sending email. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending email. Please try again.');
+            });
         }
     </script>
 </body>
