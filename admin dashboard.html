@@ -49,14 +49,30 @@
 <body>
     <div class="sidebar">
         <h2>Admin Dashboard</h2>
-        <a href="user management.html">User Management</a>
-        <a href="activity logs.html">Activity Logs</a>
+        <a href="user_management.html">User Management</a>
+        <a href="activity_logs.html">Activity Logs</a>
         <a href="settings.html">Settings</a>
-        <a href="index.html">Logout</a>
+        <a href="javascript:void(0);" onclick="logout()">Logout</a>
     </div>
     <div class="main-content">
         <h3>Welcome to the Admin Dashboard</h3>
         <p>Select a section from the sidebar to manage users, view activity logs, or configure settings.</p>
     </div>
+
+    <script>
+        // Check if the user is authenticated
+        if (localStorage.getItem('isAdminLoggedIn') !== 'true') {
+            // If not authenticated, redirect to login page
+            window.location.href = 'admin login.html'; // Redirect to admin login page
+        }
+
+        // Function to log out
+        function logout() {
+            // Clear the authentication flag
+            localStorage.removeItem('isAdminLoggedIn');
+            // Redirect to the login page
+            window.location.href = 'admin login.html'; // Redirect to admin login page
+        }
+    </script>
 </body>
 </html>

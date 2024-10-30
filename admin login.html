@@ -92,6 +92,12 @@
     </div>
 
     <script>
+        // Check if the user is already logged in
+        if (localStorage.getItem('isAdminLoggedIn') === 'true') {
+            // Redirect to admin dashboard if already logged in
+            window.location.href = 'admin dashboard.html';
+        }
+
         function adminLogin() {
             const adminUsername = document.getElementById('admin-username').value;
             const adminPassword = document.getElementById('admin-password').value;
@@ -104,6 +110,8 @@
 
             if (adminUsername === adminCredentials.username && adminPassword === adminCredentials.password) {
                 alert('Admin login successful!');
+                // Set the login status in localStorage
+                localStorage.setItem('isAdminLoggedIn', 'true');
                 window.location.href = 'admin dashboard.html'; // Redirect to admin dashboard
             } else {
                 alert('Invalid admin username or password');
