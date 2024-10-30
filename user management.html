@@ -20,6 +20,7 @@
         <tr>
             <th>Username</th>
             <th>Email</th>
+            <th>Password</th>
             <th>Actions</th>
         </tr>
         <!-- User rows will be populated here -->
@@ -29,7 +30,7 @@
         function loadUsers() {
             const users = JSON.parse(localStorage.getItem('users')) || {};
             const userTable = document.getElementById('userTable');
-            userTable.innerHTML = '<tr><th>Username</th><th>Email</th><th>Actions</th></tr>'; // Clear table
+            userTable.innerHTML = '<tr><th>Username</th><th>Email</th><th>Password</th><th>Actions</th></tr>'; // Clear table
 
             for (let username in users) {
                 const user = users[username];
@@ -37,6 +38,7 @@
                     <tr>
                         <td>${username}</td>
                         <td>${user.email}</td>
+                        <td>${user.password}</td> <!-- Displaying the password -->
                         <td>
                             <button class="reset-btn" onclick="resetPassword('${username}')">Reset Password</button>
                             <button class="delete-btn" onclick="deleteUser('${username}')">Delete</button>
