@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - Plant Monitoring System</title>
+
     <style>
         /* Main styling */
         body {
             font-family: Arial, sans-serif;
-            background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -16,47 +18,154 @@
             margin: 0;
             display: flex;
             overflow: hidden;
+            transition: margin-left 0.3s;
         }
+
         .sidebar {
-            width: 250px;
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
             padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+            position: fixed;
+            left: -250px;
+            top: 0;
+            height: 100%;
+            transition: transform 0.3s ease;
+            z-index: 1000;
         }
+
+        .sidebar.open {
+            transform: translateX(250px);
+        }
+
         .sidebar h2 {
             color: #ffc107;
             text-align: center;
+            margin-bottom: 20px;
         }
+
         .sidebar a {
             color: #ddd;
             padding: 15px;
             text-decoration: none;
-            transition: background-color 0.3s;
-            display: block;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
         }
+
+        .sidebar a i {
+            margin-right: 10px;
+        }
+
         .sidebar a:hover {
             background-color: #333;
             color: #ffc107;
         }
+
         .main-content {
             flex: 1;
-            padding: 20px;
+            padding: 50px; /* Reduced padding for better layout on mobile */
             color: #333;
+            margin-left: 0;
+            transition: margin-left 0.3s;
+        }
+
+        .main-content.shift {
+            margin-left: 250px;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 2000;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background-color: rgba(0, 0, 0, 1);
+        }
+
+        /* Card layout for content */
+        .card {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        h4 {
+            margin-top: 20px; /* Added margin for better spacing */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar.open {
+                transform: translateX(200px);
+            }
+
+            .main-content {
+                padding: 20px; /* Less padding on smaller screens */
+                margin-left: 0; /* Reset margin for smaller screens */
+            }
+
+            .toggle-btn {
+                padding: 8px; /* Smaller padding for mobile */
+                font-size: 16px; /* Smaller font size for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .sidebar h2 {
+                font-size: 1.5em; /* Smaller header size */
+            }
+
+            .sidebar a {
+                font-size: 14px; /* Smaller font size for links */
+            }
+
+            .main-content {
+                padding: 15px; /* Reduced padding */
+            }
+
+            .card {
+                padding: 15px; /* Reduce padding in cards for mobile */
+            }
         }
     </style>
 </head>
+
 <body>
-    <div class="sidebar">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="sidebar" id="sidebar">
         <h2>Admin Dashboard</h2>
-        <a href="user_management.html">User Management</a>
-        <a href="activity_logs.html">Activity Logs</a>
-        <a href="settings.html">Settings</a>
-        <a href="javascript:void(0);" onclick="logout()">Logout</a>
+        <a href="user management.html"><i class="fas fa-user-cog"></i>User Management</a>
+        <a href="activity logs.html"><i class="fas fa-clipboard-list"></i>Activity Logs</a>
+        <a href="settings.html"><i class="fas fa-cogs"></i>Settings</a>
+        <a href="javascript:void(0);" onclick="logout()"><i class="fas fa-sign-out-alt"></i>Logout</a>
     </div>
-    <div class="main-content">
-        <h3>Welcome to the Admin Dashboard</h3>
-        <p>Select a section from the sidebar to manage users, view activity logs, or configure settings.</p>
+    <div class="main-content" id="mainContent">
+        <div class="card">
+            <h3>Welcome to the Admin Dashboard</h3>
+            <p>Select a section from the sidebar to manage users, view activity logs, or configure settings.</p>
+
+            <h4>Dashboard Overview</h4>
+            <p>This section provides a quick overview of the plant monitoring system's performance, user activities, and alerts.</p>
+
+            <h4>Recent Activity</h4>
+            <p>Here you can track the most recent activities performed in the system, ensuring you stay informed about any changes.</p>
+        </div>
     </div>
 
     <script>
@@ -73,6 +182,23 @@
             // Redirect to the login page
             window.location.href = 'admin login.html'; // Redirect to admin login page
         }
+
+        // Function to toggle sidebar visibility
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.getElementById('mainContent');
+            sidebar.classList.toggle('open'); // Add or remove 'open' class
+            mainContent.classList.toggle('shift'); // Shift main content accordingly
+
+            // Add/remove 'disabled' class to toggle button for better UX
+            const toggleBtn = document.querySelector('.toggle-btn');
+            if (sidebar.classList.contains('open')) {
+                toggleBtn.innerHTML = '✖'; // Change to 'X' when sidebar is open
+            } else {
+                toggleBtn.innerHTML = "☰"; // Change back to hamburger icon when closed
+            }
+        }
     </script>
 </body>
+
 </html>
