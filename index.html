@@ -113,6 +113,8 @@
         }
     </style>
 </head>
+
+
 <body>
     <div class="overlay"></div>
     <a href="about.html" class="about-button">About</a>
@@ -124,7 +126,7 @@
         <div id="countdown" class="countdown"></div>
         <a href="register.html">Don't have an account? Register</a>
         <a href="admin login.html" class="admin-button">Admin Login</a>
-        <a href="forgot pass.html" style="margin-top: 10px; color: #1e232a;">Forgot Password?</a> <!-- Added Forgot Password link -->
+        <a href="forgot pass.html" style="margin-top: 10px; color: #1e232a;">Forgot Password?</a>
     </div>
 
     <script>
@@ -137,26 +139,21 @@
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            let users = JSON.parse(localStorage.getItem('users')) || {};
-            let loggedIn = false;
+            // Check hardcoded credentials
+            const defaultUsername = 'plant';
+            const defaultPassword = 'plant123';
 
-            for (let user in users) {
-                if ((user === username || users[user].email === username) && users[user].password === password) {
-                    loggedIn = true;
-                    break;
-                }
-            }
-
-            if (loggedIn) {
+            if (username === defaultUsername && password === defaultPassword) {
                 alert('Login successful!');
-                window.location.href = 'plantmonitoring.html'; // Redirect to home page
+                window.location.href = 'plantmonitoring.html'; // Redirect to the home page
             } else {
                 attempts++;
                 localStorage.setItem('attempts', attempts);
+
                 if (attempts >= maxAttempts) {
                     lockoutEndTime = Date.now() + lockoutTime;
                     localStorage.setItem('lockoutEndTime', lockoutEndTime);
-                    alert("Your attempts expired. Try again after 5 minutes.");
+                    alert("Your attempts have expired. Try again after 5 minutes.");
                     disableLoginButton();
                 } else {
                     alert("Invalid login. Please try again.");
@@ -191,6 +188,5 @@
             disableLoginButton();
         }
     </script>
-    
 </body>
 </html>
