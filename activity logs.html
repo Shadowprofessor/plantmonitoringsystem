@@ -3,22 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
+    <title>Activity Logs - Admin Dashboard</title>
     <style>
         body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; padding: 20px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #007bff; color: white; }
-        button { padding: 8px 12px; margin: 4px; border: none; color: white; cursor: pointer; }
-        .delete-btn { background-color: #dc3545; }
-        .reset-btn { background-color: #007bff; }
     </style>
 </head>
 <body>
-    <h3>Admin Dashboard</h3>
-    <h4>Activity Logs</h4>
-    <button onclick="fetchLogs()">Fetch Logs</button>
-    <table id="logTable">
+    <h3>Recent Activity Logs</h3>
+    <table id="activityLogTable">
         <tr>
             <th>Date</th>
             <th>Activity</th>
@@ -27,51 +22,24 @@
     </table>
 
     <script>
-        // Fetch activity logs from the server
-        function fetchLogs() {
-            fetch('/get-logs')
-                .then(response => response.json())
-                .then(logs => {
-                    const table = document.getElementById('logTable');
-                    table.innerHTML = `<tr><th>Date</th><th>Activity</th><th>User</th></tr>`; // Clear existing rows
-                    logs.forEach(log => {
-                        log.forEach(entry => {
-                            const row = document.createElement('tr');
-                            row.innerHTML = `<td>${entry.date}</td><td>${entry.activity}</td><td>${entry.user}</td>`;
-                            table.appendChild(row);
-                        });
-                    });
-                })
-                .catch(error => console.error('Error fetching logs:', error));
-        }
+        // Sample logs for demonstration
+        const sampleLogs = [
+            { date: '2024-10-27', activity: 'User Login', user: 'admin' },
+            { date: '2024-10-26', activity: 'Password Reset', user: 'user1' },
+            { date: '2024-10-25', activity: 'System Settings Update', user: 'admin' },
+        ];
 
-        // Example function to register a user
-        function register(username, password) {
-            fetch('/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username: username, password: password })
-            })
-            .then(response => response.json())
-            .then(data => alert(data.message))
-            .catch(error => console.error('Error registering user:', error));
-        }
+        // Load logs from localStorage or initialize
+        const logs = JSON.parse(localStorage.getItem('activityLogs')) || sampleLogs;
+        localStorage.setItem('activityLogs', JSON.stringify(logs)); // Save sample logs if new
 
-        // Example function to login a user
-        function login(username, password) {
-            fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username: username, password: password })
-            })
-            .then(response => response.json())
-            .then(data => alert(data.message))
-            .catch(error => console.error('Error logging in:', error));
-        }
+        // Display logs in the table
+        const logTable = document.getElementById('activityLogTable');
+        logs.forEach(log => {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td>${log.date}</td><td>${log.activity}</td><td>${log.user}</td>`;
+            logTable.appendChild(row);
+        });
     </script>
 </body>
 </html>

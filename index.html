@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Plant Monitoring System</title>
-    <style> 
+    <style>
         /* Base styling */
         body {
             font-family: Arial, sans-serif;
@@ -160,30 +160,23 @@
         <a href="forgot pass.html" style="margin-top: 10px; color: #1e232a;">Forgot Password?</a>
     </div>
 
-
     <script>
-        // Simulated user data storage dictionary
-        const userDatabase = {
-            'plant': 'plant123', // username: password
-            'user1': 'user1234',
-            'admin': 'adminpassword'
-        };
-
-        // Simulate loading login attempts and lockout from "database"
         let attempts = parseInt(localStorage.getItem('attempts')) || 0;
         const maxAttempts = 5;
         const lockoutTime = 5 * 60 * 1000; // 5 minutes in milliseconds
         let lockoutEndTime = parseInt(localStorage.getItem('lockoutEndTime')) || 0;
 
-        // Simulated Login Function
         function login() {
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
 
-            // Check credentials from "database"
-            if (userDatabase[username] && userDatabase[username] === password) {
+            // Check hardcoded credentials
+            const defaultUsername = 'plant';
+            const defaultPassword = 'plant123';
+
+            if (username === defaultUsername && password === defaultPassword) {
                 alert('Login successful!');
-                window.location.href = 'plantmonitoring.html'; // Redirect to monitoring page
+                window.location.href = 'plantmonitoring.html'; // Redirect to the home page
             } else {
                 attempts++;
                 localStorage.setItem('attempts', attempts);
@@ -191,15 +184,14 @@
                 if (attempts >= maxAttempts) {
                     lockoutEndTime = Date.now() + lockoutTime;
                     localStorage.setItem('lockoutEndTime', lockoutEndTime);
-                    alert("Attempts expired. Try again after 5 minutes.");
+                    alert("Your attempts have expired. Try again after 5 minutes.");
                     disableLoginButton();
                 } else {
-                    alert("Invalid login. Try again.");
+                    alert("Invalid login. Please try again.");
                 }
             }
         }
 
-        // Disable login function for lockout period
         function disableLoginButton() {
             const loginButton = document.getElementById('loginButton');
             const countdown = document.getElementById('countdown');
