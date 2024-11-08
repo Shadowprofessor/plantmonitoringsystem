@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Plant Monitoring System</title>
     <style>
+        /* Base styling */
         body {
             font-family: Arial, sans-serif;
             background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
@@ -29,7 +30,8 @@
             backdrop-filter: blur(5px);
         }
         .container {
-            width: 350px;
+            width: 90%;
+            max-width: 400px;
             padding: 30px;
             background-color: rgba(255, 255, 255, 0.9);
             color: #333;
@@ -110,6 +112,37 @@
         .countdown {
             margin-top: 10px;
             color: red;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+            .about-button {
+                top: 10px;
+                right: 10px;
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h2 {
+                font-size: 20px;
+            }
+            button, input[type="text"], input[type="password"] {
+                padding: 10px;
+                font-size: 1rem;
+            }
+            .about-button {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+            .container {
+                box-shadow: none;
+            }
         }
     </style>
 </head>

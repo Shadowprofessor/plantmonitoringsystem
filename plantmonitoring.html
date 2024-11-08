@@ -8,29 +8,37 @@
         /* Basic styling for the page layout */
         body {
             background-color: #121212;
-            background-image: url('https://swanhose.com/cdn/shop/articles/water-plant-growth.jpg?v=1683652693');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://www.shutterstock.com/image-photo/young-sprout-agricultural-technologies-scientific-260nw-2386731589.jpg');
             background-size: cover;
             background-position: center;
-            color: white;
-            font-family: Arial, sans-serif;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
         /* Header styling */
         #head {
-            background-color: rgba(0, 0, 0, 0.7);
-            border: 2px solid #4CAF50;
-            border-radius: 12px;
+            background-color: rgba(34, 34, 34, 0.8);
+            border: 3px solid #6abf69;
+            border-radius: 15px;
             padding: 20px;
             margin-top: 20px;
             width: 90%;
             text-align: center;
-            color: #4CAF50;
-            font-size: 36px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            color: #6abf69;
+            font-size: 3.2em;
+            font-weight: bold;
+            box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s;
+        }
+        
+        /* Hover effect on header */
+        #head:hover {
+            transform: scale(1.05);
         }
 
         /* Iframe container styling */
@@ -38,55 +46,108 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 20px;
+            gap: 25px;
+            padding: 25px;
             width: 90%;
             margin-top: 20px;
         }
 
         /* Styling for each iframe */
         iframe {
-            border: 2px solid #4CAF50;
-            border-radius: 8px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+            border: 3px solid #6abf69;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 450px;
+            height: 260px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+
+        /* Iframe hover effect */
+        iframe:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.7);
         }
 
         /* About button styling */
         .about-button {
-            background-color: #4CAF50;
+            background-color: #6abf69;
             color: white;
-            padding: 12px 25px;
+            padding: 14px 30px;
             text-align: center;
             text-decoration: none;
-            font-size: 18px;
+            font-size: 1.2em;
             margin-top: 30px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+            font-weight: bold;
         }
 
+        /* Hover effect for button */
         .about-button:hover {
-            background-color: #45a049;
+            background-color: #57a85f;
             transform: translateY(-3px);
+            box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.6);
         }
 
         /* Responsive styling */
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) {
+            #head {
+                font-size: 2.8em;
+            }
             iframe {
-                width: 90%;
+                max-width: 100%;
+                height: 220px;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .iframe-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            iframe {
+                max-width: 90%;
+                height: 220px;
+            }
+            #head {
+                font-size: 2.4em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .about-button {
+                padding: 12px 24px;
+                font-size: 1.1em;
+            }
+            iframe {
+                max-width: 95%;
                 height: 200px;
+            }
+            #head {
+                font-size: 2.2em;
             }
         }
 
         @media (max-width: 480px) {
-            #head {
-                font-size: 28px;
-            }
             .about-button {
                 padding: 10px 20px;
-                font-size: 16px;
+                font-size: 1em;
+            }
+            iframe {
+                max-width: 100%;
+                height: 180px;
+            }
+            #head {
+                font-size: 1.8em;
+                margin-top: 10px;
+            }
+            .iframe-container {
+                gap: 20px;
+                padding: 15px;
             }
         }
     </style>
@@ -97,11 +158,11 @@
     </div>
 
     <div class="iframe-container">
-        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
-        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
-        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
-        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>
-        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+        <iframe src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
+        <iframe src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
+        <iframe src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+        <iframe src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>
+        <iframe src="https://thingspeak.com/channels/2679947/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
     </div>
 
     <button class="about-button" onclick="window.location.href='about.html'">About Us</button>
