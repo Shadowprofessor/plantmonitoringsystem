@@ -1,67 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plant Monitoring System</title>
     <style>
+        /* Basic styling for the page layout */
         body {
-            background-color: black;
+            background-color: #121212;
             background-image: url('https://swanhose.com/cdn/shop/articles/water-plant-growth.jpg?v=1683652693');
+            background-size: cover;
+            background-position: center;
             color: white;
-            text-align: center;
-            align-items: center;
             font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        h1 {
-            font-size: 76px;
-        }
-        .box_1 {
-            fill: rgba(0, 0, 0, 0.685);
-            padding: 10px;
-            margin: 40px;
-            width: 600px;
-            height: 400px;
-            float: left;
-            text-decoration: underline;
-        }
-        .box_2 {
-            border: 3px solid #ccc;
-            fill: rgba(0, 0, 0, 0.685);
-            padding: 10px;
-            margin: 40px;
-            width: 600px;
-            height: 100px;
-            float: left;
-            text-decoration: underline;
-        }
+
+        /* Header styling */
         #head {
-            border: 5px solid white;
-            padding: 9px;
-            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 90%;
             text-align: center;
-            width: 99%;
-            margin: 10px;
+            color: #4CAF50;
+            font-size: 36px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
         }
-        .box_1 a, .box_2 a {
-            color: white;
-            text-decoration: none;
+
+        /* Iframe container styling */
+        .iframe-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            width: 90%;
+            margin-top: 20px;
         }
+
+        /* Styling for each iframe */
+        iframe {
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* About button styling */
         .about-button {
             background-color: #4CAF50;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 25px;
             text-align: center;
             text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px 2px;
-            cursor: pointer;
+            font-size: 18px;
+            margin-top: 30px;
+            border: none;
             border-radius: 8px;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
         }
+
         .about-button:hover {
             background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            iframe {
+                width: 90%;
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #head {
+                font-size: 28px;
+            }
+            .about-button {
+                padding: 10px 20px;
+                font-size: 16px;
+            }
         }
     </style>
 </head>
@@ -70,16 +96,16 @@
         <h1>Plant Monitoring System</h1>
     </div>
 
-    <iframe width="450" height="260" style="border: 1px solid #840d0d;" src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
+    <div class="iframe-container">
+        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15">Temperature</iframe>
+        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
+        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>
+        <iframe width="450" height="260" src="https://thingspeak.com/channels/2679947/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+    </div>
 
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line">Humidity</iframe>
-
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
-
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/maps/channel_show"></iframe>  
-     
-    <iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/2679947/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
     <button class="about-button" onclick="window.location.href='about.html'">About Us</button>
+
     <script>
         async function fetchDataFromThingSpeak() {
             const channelID = '2679947';
@@ -113,4 +139,5 @@
     
         fetchDataFromThingSpeak();
     </script>
-    
+</body>
+</html>
