@@ -3,221 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Plant Monitoring System</title>
+    <title>Plant Monitoring System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Base styling */
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://cff2.earth.com/uploads/2019/02/13131742/Plants-can-generate-electricity%E2%80%A6-and-we-may-be-able-to-use-it.jpg');
-            background-size: cover;
-            background-position: center;
-            background-color: #0d0808;
-            height: 100vh;
+        /* Global Styles */
+        body, html {
             margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #006699;
+            color: white;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .navbar ul {
             display: flex;
             justify-content: center;
-            align-items: center;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar li {
+            margin: 0 30px;
+        }
+        .navbar a {
             color: white;
-            overflow: hidden;
-        }
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.6);
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            backdrop-filter: blur(5px);
-        }
-        .container {
-            width: 90%;
-            max-width: 400px;
-            padding: 30px;
-            background-color: rgba(255, 255, 255, 0.9);
-            color: #333;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            border-radius: 10px;
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            transition: transform 0.3s ease-in-out;
-        }
-        .container:hover {
-            transform: scale(1.05);
-        }
-        h2 {
-            margin: 0 0 20px 0;
-            font-size: 24px;
-        }
-        input[type="text"], input[type="password"] {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            transition: border-color 0.3s;
-        }
-        input[type="text"]:focus, input[type="password"]:focus {
-            border-color: #007bff;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-2px);
-        }
-        a {
-            display: block;
-            text-align: center;
-            margin-top: 10px;
-            color: #007bff;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            text-transform: uppercase;
             transition: color 0.3s;
         }
-        a:hover {
-            color: #0056b3;
+        .navbar a:hover {
+            color: #6abf69;
         }
-        /* About button */
-        .about-button {
+
+        /* Hero Section */
+        .hero {
+            background-image: url('https://www.shutterstock.com/image-photo/young-sprout-agricultural-technologies-scientific-260nw-2386731589.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .hero::before {
+            content: "";
             position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #26b979;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            z-index: 1;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            z-index: 1;
+        }
+        .cta-buttons a {
+            background-color: #6abf69;
             color: white;
             text-decoration: none;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border-radius: 30px;
+            transition: all 0.3s;
+            margin: 10px;
+            z-index: 1;
         }
-        .about-button:hover {
-            background-color: #1e8f63;
+        .cta-buttons a:hover {
+            background-color: #57a85f;
+            transform: translateY(-3px);
         }
-        /* Admin button */
-        .admin-button {
-            display: block;
+
+        /* Main Content Section */
+        .main-content {
+            padding: 40px;
+            background-color: white;
             text-align: center;
-            margin-top: 15px;
-            color: #060408;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: -60px;
         }
-        /* Countdown timer */
-        .countdown {
-            margin-top: 10px;
-            color: red;
+        .main-content h2 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            color: #777;
         }
 
-        /* Responsive Design */
+        /* Footer */
+        .footer {
+            background-color: #006699;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        /* Media Queries for Responsiveness */
         @media (max-width: 768px) {
-            .container {
-                padding: 20px;
-                width: 90%;
+            .navbar ul {
+                flex-direction: column;
             }
-            .about-button {
-                top: 10px;
-                right: 10px;
-                padding: 8px 16px;
-                font-size: 0.9rem;
+            .hero h1 {
+                font-size: 2.5rem;
             }
-        }
-
-        @media (max-width: 576px) {
-            h2 {
-                font-size: 20px;
-            }
-            button, input[type="text"], input[type="password"] {
-                padding: 10px;
-                font-size: 1rem;
-            }
-            .about-button {
-                font-size: 0.8rem;
-                padding: 6px 12px;
-            }
-            .container {
-                box-shadow: none;
+            .hero p {
+                font-size: 1.1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="overlay"></div>
-    <a href="about.html" class="about-button">About</a>
-    <div class="container">
-        <h2>Login</h2>
-        <input type="text" id="username" placeholder="Username or Email" required>
-        <input type="password" id="password" placeholder="Password" required>
-        <button id="loginButton" onclick="login()">Login</button>
-        <div id="countdown" class="countdown"></div>
-        <a href="register.html">Don't have an account? Register</a>
-        <a href="admin login.html" class="admin-button">Admin Login</a>
-        <a href="forgot pass.html" style="margin-top: 10px; color: #1e232a;">Forgot Password?</a>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="register.html">Signup</a></li>
+        </ul>
     </div>
 
-    <script>
-        let attempts = parseInt(localStorage.getItem('attempts')) || 0;
-        const maxAttempts = 5;
-        const lockoutTime = 5 * 60 * 1000; // 5 minutes in milliseconds
-        let lockoutEndTime = parseInt(localStorage.getItem('lockoutEndTime')) || 0;
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Plant Monitoring System</h1>
+        <p>Leverage technology to monitor and grow plants sustainably</p>
+    </section>
 
-        function login() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+    <!-- Main Content Section -->
+    <section class="main-content">
+        <h2>Our Mission</h2>
+        <p>We are committed to integrating cutting-edge technology with nature to create a sustainable future. Our Plant Monitoring System helps track plant health and optimizes growth by using data-driven insights from smart sensors.</p>
+    </section>
 
-            // Check hardcoded credentials
-            const defaultUsername = 'plant';
-            const defaultPassword = 'plant123';
+    <!-- Footer -->
+    <div class="footer">
+        <p>Contact Us: <strong>
+            
+        </strong></p>
+    </div>
 
-            if (username === defaultUsername && password === defaultPassword) {
-                alert('Login successful!');
-                window.location.href = 'plantmonitoring.html'; // Redirect to the home page
-            } else {
-                attempts++;
-                localStorage.setItem('attempts', attempts);
-
-                if (attempts >= maxAttempts) {
-                    lockoutEndTime = Date.now() + lockoutTime;
-                    localStorage.setItem('lockoutEndTime', lockoutEndTime);
-                    alert("Your attempts have expired. Try again after 5 minutes.");
-                    disableLoginButton();
-                } else {
-                    alert("Invalid login. Please try again.");
-                }
-            }
-        }
-
-        function disableLoginButton() {
-            const loginButton = document.getElementById('loginButton');
-            const countdown = document.getElementById('countdown');
-            loginButton.disabled = true;
-
-            const interval = setInterval(() => {
-                const remainingTime = lockoutEndTime - Date.now();
-                if (remainingTime <= 0) {
-                    clearInterval(interval);
-                    loginButton.disabled = false;
-                    countdown.textContent = '';
-                    attempts = 0;
-                    localStorage.removeItem('attempts');
-                    localStorage.removeItem('lockoutEndTime');
-                } else {
-                    const minutes = Math.floor(remainingTime / 60000);
-                    const seconds = Math.floor((remainingTime % 60000) / 1000);
-                    countdown.textContent = `Try again in ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-                }
-            }, 1000);
-        }
-
-        // Check if the user is currently locked out
-        if (lockoutEndTime > Date.now()) {
-            disableLoginButton();
-        }
-    </script>
 </body>
 </html>

@@ -137,7 +137,7 @@
         <input type="text" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Password" required>
         <button onclick="register()">Register</button>
-        <a href="index.html">Already have an account? Login</a>
+        <a href="login.html">Already have an account? Login</a>
     </div>
 
     <script>
@@ -161,7 +161,7 @@
             users[username] = { email, password };
             localStorage.setItem('users', JSON.stringify(users));
             alert("Registration successful!");
-            window.location.href = "index.html";
+            window.location.href = "login.html";
         }
     </script>
 </body>

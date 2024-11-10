@@ -5,54 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings - Admin Dashboard</title>
     <style>
-        body { font-family: Arial, sans-serif; color: #333; background-color: #f8f9fa; padding: 20px; }
-        .settings-container { max-width: 600px; margin: auto; }
-        h3 { color: #007bff; }
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #333;
+            --background-color: #f8f9fa;
+        }
+
+        /* Dark mode colors */
+        .dark-mode {
+            --primary-color: #90caf9;
+            --secondary-color: #f0f0f0;
+            --background-color: #121212;
+        }
+
+        body { font-family: Arial, sans-serif; color: var(--secondary-color); background-color: var(--background-color); padding: 20px; transition: background-color 0.3s, color 0.3s; }
+        .settings-container { max-width: 600px; margin: auto; padding: 20px; background-color: white; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); transition: background-color 0.3s; }
+        .dark-mode .settings-container { background-color: #333; }
+        h3 { color: var(--primary-color); }
         label { display: block; margin-top: 20px; font-weight: bold; }
         input[type="checkbox"] { margin-right: 10px; }
-        button { margin-top: 20px; padding: 10px 20px; border: none; color: white; background-color: #007bff; cursor: pointer; }
+        select, input[type="text"] { width: 100%; padding: 10px; margin-top: 10px; font-size: 1rem; }
+        .button-group { display: flex; gap: 10px; margin-top: 20px; }
+        button { padding: 10px 20px; border: none; color: white; background-color: var(--primary-color); cursor: pointer; border-radius: 5px; }
         button:hover { background-color: #0056b3; }
+        .reset-btn { background-color: #dc3545; }
+        .reset-btn:hover { background-color: #c82333; }
+        .message { display: none; color: #28a745; margin-top: 10px; font-weight: bold; }
+        .tooltip { position: relative; display: inline-block; cursor: pointer; color: var(--primary-color); }
+        .tooltip .tooltiptext { visibility: hidden; background-color: #333; color: #fff; text-align: center; border-radius: 5px; padding: 5px; position: absolute; z-index: 1; top: -5px; left: 105%; white-space: nowrap; }
+        .tooltip:hover .tooltiptext { visibility: visible; }
+        .preview { margin-top: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
     </style>
 </head>
 <body>
-    <div class="settings-container">
-        <h3>System Settings</h3>
+    <div class="settings-container" role="form" aria-labelledby="settings-title">
+        <h3 id="settings-title">System Settings</h3>
         <form id="settingsForm">
             <label>
-                <input type="checkbox" id="emailNotifications"> Enable Email Notifications
+                <input type="checkbox" id="emailNotifications" aria-label="Enable Email Notifications">
+                Enable Email Notifications
+                <span class="tooltip">ℹ️
+                    <span class="tooltiptext">Receive notifications via email.</span>
+                </span>
             </label>
             <label>
-                <input type="checkbox" id="smsNotifications"> Enable SMS Notifications
+                <input type="checkbox" id="smsNotifications" aria-label="Enable SMS Notifications">
+                Enable SMS Notifications
+                <span class="tooltip">ℹ️
+                    <span class="tooltiptext">Receive notifications via SMS.</span>
+                </span>
             </label>
             <label>
-                <select id="systemMode">
+                System Mode
+                <select id="systemMode" aria-label="Select System Mode">
                     <option value="auto">Auto Mode</option>
                     <option value="manual">Manual Mode</option>
                 </select>
-                System Mode
             </label>
-            <button type="submit">Save Settings</button>
+            <label>
+                User Profile Name
+                <input type="text" id="profileName" maxlength="20" placeholder="Enter your name">
+                <small id="charCounter">20 characters remaining</small>
+            </label>
+            <label>
+                <input type="checkbox" id="darkModeToggle" aria-label="Enable Dark Mode">
+                Enable Dark Mode
+            </label>
+            <div class="button-group">
+                <button type="button" id="saveSettings">Save Settings</button>
+                <button type="button" class="reset-btn" id="resetSettings">Reset to Default</button>
+            </div>
+            <p class="message" id="successMessage">Settings saved successfully!</p>
+            <div id="confirmationModal" style="display: none;">
+                <p>Are you sure you want to save changes?</p>
+                <button id="confirmSave">Yes</button>
+                <button id="cancelSave">Cancel</button>
+            </div>
         </form>
+        <div class="preview">
+            <h4>Preview</h4>
+            <p>Email Notifications: <span id="previewEmail"></span></p>
+            <p>SMS Notifications: <span id="previewSms"></span></p>
+            <p>System Mode: <span id="previewMode"></span></p>
+            <p>Profile Name: <span id="previewName"></span></p>
+            <p>Theme: <span id="previewTheme">Light</span></p>
+        </div>
     </div>
 
     <script>
         // Load saved settings
-        const settings = JSON.parse(localStorage.getItem('settings')) || { emailNotifications: false, smsNotifications: false, systemMode: 'auto' };
+        const settings = JSON.parse(localStorage.getItem('settings')) || { emailNotifications: false, smsNotifications: false, systemMode: 'auto', profileName: '', darkMode: false };
         document.getElementById('emailNotifications').checked = settings.emailNotifications;
         document.getElementById('smsNotifications').checked = settings.smsNotifications;
         document.getElementById('systemMode').value = settings.systemMode;
+        document.getElementById('profileName').value = settings.profileName;
+        document.getElementById('darkModeToggle').checked = settings.darkMode;
+        updatePreview();
 
-        // Save settings
-        document.getElementById('settingsForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Update character counter
+        const charCounter = document.getElementById('charCounter');
+        document.getElementById('profileName').addEventListener('input', function() {
+            const remaining = 20 - this.value.length;
+            charCounter.textContent = `${remaining} characters remaining`;
+            updatePreview();
+        });
+
+        // Dark mode toggle
+        document.getElementById('darkModeToggle').addEventListener('change', function() {
+            document.body.classList.toggle('dark-mode', this.checked);
+            updatePreview();
+        });
+
+        // Show confirmation modal before saving
+        document.getElementById('saveSettings').addEventListener('click', function() {
+            document.getElementById('confirmationModal').style.display = 'block';
+        });
+
+        // Confirm and save settings
+        document.getElementById('confirmSave').addEventListener('click', function() {
             const updatedSettings = {
                 emailNotifications: document.getElementById('emailNotifications').checked,
                 smsNotifications: document.getElementById('smsNotifications').checked,
                 systemMode: document.getElementById('systemMode').value,
+                profileName: document.getElementById('profileName').value,
+                darkMode: document.getElementById('darkModeToggle').checked,
             };
             localStorage.setItem('settings', JSON.stringify(updatedSettings));
-            alert("Settings saved successfully!");
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(() => { document.getElementById('successMessage').style.display = 'none'; }, 2000);
+            document.getElementById('confirmationModal').style.display = 'none';
+            updatePreview();
         });
+
+        // Cancel save
+        document.getElementById('cancelSave').addEventListener('click', function() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        });
+
+        // Reset settings
+        document.getElementById('resetSettings').addEventListener('click', function() {
+            localStorage.removeItem('settings');
+            location.reload();
+        });
+
+        // Update preview section
+        function updatePreview() {
+            document.getElementById('previewEmail').textContent = document.getElementById('emailNotifications').checked ? 'Enabled' : 'Disabled';
+            document.getElementById('previewSms').textContent = document.getElementById('smsNotifications').checked ? 'Enabled' : 'Disabled';
+            document.getElementById('previewMode').textContent = document.getElementById('systemMode').value;
+            document.getElementById('previewName').textContent = document.getElementById('profileName').value || 'Not set';
+            document.getElementById('previewTheme').textContent = document.getElementById('darkModeToggle').checked ? 'Dark' : 'Light';
+        }
     </script>
 </body>
 </html>
