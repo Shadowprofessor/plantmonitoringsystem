@@ -61,7 +61,8 @@ async function storeDataInDB(feeds) {
     field2 = VALUES(field2),
     field3 = VALUES(field3),
     field4 = VALUES(field4),
-    location = VALUES(location)
+    location = VALUES(location),
+    field5 = VALUES(field5)
   `;
   
   const values = feeds.map(feed => [
@@ -71,7 +72,8 @@ async function storeDataInDB(feeds) {
     feed.field2, 
     feed.field3, 
     feed.field4, 
-    feed.location
+    feed.location,
+    feed.field5
   ]);
 
   db.query(sql, [values], (err, result) => {
