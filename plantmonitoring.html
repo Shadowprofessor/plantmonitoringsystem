@@ -171,7 +171,16 @@
         async function fetchDataFromThingSpeak() {
             const channelID = '2679947';
             const apiUrl = `https://api.thingspeak.com/channels/${channelID}/feeds.json?results=1`;
-    
+                    // Polling every 2 minutes to update status on the client
+        setInterval(async function() {
+            try {
+                const response = await fetch('/get-status');
+                const status = await response.json();
+                document.getElementById('status').textContent = status.message;
+            } catch (error) {
+                console.error('Error fetching status:', error);
+            }
+        }, 120000);  // 120,000ms = 2 minutes
             try {
                 const response = await fetch(apiUrl);
                 if (!response.ok) {
