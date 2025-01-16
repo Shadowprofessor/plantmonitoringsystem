@@ -41,8 +41,7 @@ def store_data_in_db(data):
             field3 = feed.get("field3", None)
             field4 = feed.get("field4", None)
             location = feed.get("location", None)
-            field5
-
+        
             # Convert created_at to datetime format
             created_at_dt = datetime.strptime(created_at, "%Y-%m-%dT%H:%M:%SZ")
 
@@ -80,8 +79,8 @@ def main():
             else:
                 print("No new data to store.")
 
-            print("Waiting for 2 minutes before reactivating...")
-            time.sleep(120)  # Wait for 2 minutes before reactivating
+            print("Waiting for 15minutes before reactivating...")
+            time.sleep(54000)  # Wait for 2 minutes before reactivating
         except KeyboardInterrupt:
             print("Process interrupted by user.")
             break  # Exit the loop when the script is manually stopped

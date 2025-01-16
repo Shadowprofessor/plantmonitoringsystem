@@ -166,48 +166,71 @@
     </div>
 
     <button class="about-button" onclick="window.location.href='about.html'">About Us</button>
-
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js"></script>
+    
     <script>
-        async function fetchDataFromThingSpeak() {
-            const channelID = '2679947';
-            const apiUrl = `https://api.thingspeak.com/channels/${channelID}/feeds.json?results=1`;
-                    // Polling every 2 minutes to update status on the client
-        setInterval(async function() {
-            try {
-                const response = await fetch('/get-status');
-                const status = await response.json();
-                document.getElementById('status').textContent = status.message;
-            } catch (error) {
-                console.error('Error fetching status:', error);
+      // Your Firebase configuration
+      const firebaseConfig = {
+          apiKey: "AIzaSyDWmEZYmywH-RB4FTdGAjIN1_t7K7mPb0Q",
+          authDomain: "plant-electricity.firebaseapp.com",
+          databaseURL: "https://plant-electricity-default-rtdb.firebaseio.com",
+          projectId: "plant-electricity",
+          storageBucket: "plant-electricity.firebasestorage.app",
+          messagingSenderId: "852224018366",
+          appId: "1:852224018366:web:accc086bc05824b1bc9bef",
+          measurementId: "G-M3WM49GVK3"
+      };
+    
+      // Initialize Firebase
+      const app = firebase.initializeApp(firebaseConfig);
+      const database = firebase.database();
+    
+      // ThingSpeak API details
+      const thingspeakUrl = "https://api.thingspeak.com/channels/2679947/feeds.json?results=2";
+    
+      // Function to fetch data from ThingSpeak and store it in Firebase
+      function fetchAndStoreData() {
+        fetch(thingspeakUrl)
+          .then(response => response.json())
+          .then(data => {
+            const feeds = data.feeds[0]; // Get the latest feed
+            if (!feeds) {
+              console.error("No data received from ThingSpeak.");
+              return;
             }
-        }, 120000);  // 120,000ms = 2 minutes
-            try {
-                const response = await fetch(apiUrl);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
     
-                const data = await response.json();
-                const lastEntry = data.feeds[0];
+            const timestamp = feeds.created_at; // Timestamp from ThingSpeak
+            const entryId = feeds.entry_id;     // Entry ID from ThingSpeak
+            const plantData = {
+              timestamp: timestamp,             // Timestamp
+              entryId: entryId,                 // Entry ID
+              temperature: parseFloat(feeds.field1), // Temperature from field1
+              humidity: parseFloat(feeds.field2),    // Humidity from field2
+              soilMoisture: parseFloat(feeds.field3), // Soil Moisture from field3
+              voltage: parseFloat(feeds.field4)     // Voltage from field4
+            };
     
-                if (lastEntry) {
-                    let content = 'Last entry:<br>';
-                    for (let i = 1; i <= 8; i++) {
-                        if (lastEntry[`field${i}`]) {
-                            content += `Field${i}: ${lastEntry[`field${i}`]}<br>`;
-                        }
-                    }
-                    document.getElementById('dataBox2').innerHTML = content;
-                } else {
-                    document.getElementById('dataBox2').textContent = 'No data available';
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
-                document.getElementById('dataBox2').textContent = 'Failed to fetch data';
-            }
-        }
+            // Store data in Firebase under a unique ID (timestamp-based key)
+            const newEntryRef = database.ref('plants').push();
+            newEntryRef.set(plantData)
+              .then(() => {
+                console.log("Data saved to Firebase:", plantData);
+              })
+              .catch(error => {
+                console.error("Error saving data to Firebase:", error);
+              });
+          })
+          .catch(error => {
+            console.error("Error fetching data from ThingSpeak:", error);
+          });
+      }
     
-        fetchDataFromThingSpeak();
+      // Run the function periodically (e.g., every 60 seconds)
+      setInterval(fetchAndStoreData, 60000);
+    
+      // Call the function once immediately on page load
+      fetchAndStoreData();
     </script>
 </body>
 </html>
