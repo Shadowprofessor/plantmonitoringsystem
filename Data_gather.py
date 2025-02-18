@@ -83,8 +83,8 @@ def main():
             else:
                 print("No new data to store.")
 
-            print("Waiting for 30 seconds before reactivating...")
-            time.sleep(30)  # Wait for 30 seconds before reactivating
+            print("Waiting for 15mins before reactivating...")
+            time.sleep(900)  # Wait for 15mins before reactivating
         except KeyboardInterrupt:
             print("Process interrupted by user.")
             break  # Exit the loop when the script is manually stopped
